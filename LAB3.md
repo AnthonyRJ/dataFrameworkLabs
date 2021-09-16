@@ -118,3 +118,14 @@ The interesting part is :
     Job Finished in 24.132 seconds
     Estimated value of Pi is 3.14159155000000000000
 
+## 1.5 10GB GraySort example
+ + yarn jar /usr/odp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teragen -Dmapred.map.tasks=50 100000000 /user/a.reino.joaquim/data/10GB-sort-input
+ 
+ + yarn jar /usr/odp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar terasort -Dmapred.tasks=50 -Dmapred.reduce.tasks=25 /user/a.reino.joaquim/data/10GB-sort-input /user/a.reino.joaquim/data/10GB-sort-output
+ 
+ + yarn jar /usr/odp/current/hadoop-mapreduce-client/hadoop-mapreduce-examples.jar teravalidate -Dmapred.map.tasks=50 -Dmapred.reduce.tasks=25 /user/a.reino.joaquim/data/10GB-sort-output /user/a.reino.joaquim/data/10GB-sort-validate
+ 
+ #### Result : 
+ Many lines in java
+ 
+ # MapReduce2
