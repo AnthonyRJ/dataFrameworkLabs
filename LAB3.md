@@ -129,3 +129,102 @@ The interesting part is :
  Many lines in java
  
  # MapReduce2
+
+### mapper.py
+	#! /usr/bin/env python
+	"""mapper.py"""
+
+	import sys
+
+	#input comes from STDIN (standard input)
+	for line in sys.stdin:
+	    #remove leading and trailing whitespace
+	    line = line.strip()
+	    #split the line into words
+	    words = line.split()
+
+	    for word in words :
+		#write the results to STDOUT (standard output);
+		#what we output here will be the input for the 
+		#Reduce step, i.e. the input for reducer.py
+		#
+		#tab-delimited; the trivial word count is 1
+		print '%s\t%s' % (word,1)
+
+### reducer.py
+
+	#! /usr/bin/env python
+	"""reducer.py"""
+
+	from operator import itemgetter
+	import sys
+
+	current_word = None
+	current_count = 0
+	word = None
+
+	#input comes from STDIN
+	for line in sys.stdin:
+	    #remove the leading and trailing whitespace
+	    line = line.strip()
+
+	    #parse the input we got from mapper.py
+	    word, count = line.split('\t', 1)
+
+	    #convert count (currently a string) to int 
+	    count = int(count)
+
+	    #this IF-switch only works because Hadoop sorts map output
+	    #by key (here : word) before it is passed to the reducer
+	    if current_word == word:
+	       currrent_word += count
+	    else:
+	       if current_word:
+		  sys.stdout.write(current_word, current_count)
+	       current_count = count
+	       current_word = word
+
+	#do not forget to output the last word if needed !
+	if current_word == word:
+	    sys.stdout.write(current_word, current_count)
+
+## 2.3.3 Test your code (cat data | map | sort | reduce)
+ + echo "foo foo quux labs foo bar quux" | /home/a.reino.joaquim/mapper.py
+
+#### Result : 
+	foo	1
+	foo	1
+	quux	1
+	labs	1
+	foo	1
+	bar	1
+	quux	1
+
++ echo "foo foo quux labs foo bar quux" | /home/a.reino.joaquim/mapper.py | sort -k1,1 | /home/a.reino.joaquim/reducer.py
+#### Result :
+	bar	1
+	foo	3
+	labs	1
+	quux	2
+
+If we use it on the previous davinci.txt, we get this result (I only show a little part) : 
+
+	Abadie	3
+	Abadie,	1
+	abandon	1
+	abandoned	11
+	abandoned,	4
+	abandonment	1
+	abeyance	1
+	abhor.	1
+	abide	2
+	able	24
+	abnormally	2
+	abounded	1
+	about	66
+	About	14
+	above	8
+	
+## Running the python code on hadoop
+
+
