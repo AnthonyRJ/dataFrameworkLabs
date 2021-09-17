@@ -227,4 +227,11 @@ If we use it on the previous davinci.txt, we get this result (I only show a litt
 	
 ## Running the python code on hadoop
 
+### 2.4.2 Copy local example data to HDFS
++ hdfs dfs -put davinciNotebooks.txt
++ hdfs dfs -put OutlineScience.txt 
++ hdfs dfs -put ulysse.txt
+
+### 2.4.3 Run the MapReduce job
+ + A COMPLETER
 
