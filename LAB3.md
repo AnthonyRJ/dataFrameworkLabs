@@ -233,5 +233,96 @@ If we use it on the previous davinci.txt, we get this result (I only show a litt
 + hdfs dfs -put ulysse.txt
 
 ### 2.4.3 Run the MapReduce job
- + A COMPLETER
+ + $HADOOP_HOME/bin/hadoop jar /usr/odp/1.0.3.0-223/hadoop/share/hadoop/tools/lib/hadoop-streaming-3.2.2.1.0.3.0-223.jar -file /home/a.reino.joaquim/mapper.py -mapper /home/a.reino.joaquim/mapper.py -file /home/a.reino.joaquim/reducer.py -reducer /home/a.reino.joaquim/reducer.py -input /user/a.reino.joaquim/gutenberg/* -output /user/a.reino.joaquim/gutenberg-output
+ 
+ Then we can check the result with the following command : 
+ + hdfs dfs -cat /user/a.reino.joaquim/gutenberg-output
+
+#### Result : (only few lines)
+	tiring	1
+	tiroirs!	1
+	tir�s	1
+	tissue	7
+	tissue.	1
+	tissue.]	1
+	tissuepaper	2
+	tissues	10
+	tissues,	3
+	tissues.	4
+	tissues:--	1
+	tissues;	1
+	titbit	1
+	titbit,	1
+	titbit.	1
+	titbit:	1
+	titbits,	1
+	tithefarmer.	1
+	titillationes	1
+	titivate.	1
+	title	21
+
+### 2.4.5 mapperOptimized.py
+	#! /usr/bin/env python
+	#A more advanced mapper, using Python iterators and generators
+
+	import sys
+
+	def read_input(file):
+	    for line in file:
+	    #split the line into words
+		yield line.split()
+
+	def main(separator='\t'):
+	    #input comes from STDIN (standard input)
+	    data = read_input(sys.stdin)
+
+	    for words in data:
+		#write the results to STDOUT (standard output);
+		#what we output here will be the input for the
+		#Reduce step i.e. the input for the reducer.py
+		#
+		#tab-delimited; the trivial word count is 1
+		for word in words:
+		    print '%s%s%d' % (word, separator, 1)
+
+	if __name__ == "__main__":
+	    main()
+
+### 2.4.6 reducerOptimized.py
+	#! /usr/bin/env python
+	#A more advanced Reducer, using Python iterators and generators.
+
+	from itertools import groupby
+	from operator import itemgetter
+	import sys
+
+	def read_mapper_output(file, separator='\t'):
+	    for line in file:
+		yield line.rstrip().split(separator,1)
+
+	def main(separator='\t'):
+	    #input comes from STDIN (standard input)
+	    data = read_mapper_output(sys.stdin, separator=separator)
+	    #groupby groups multiple word-count pairs by word,
+	    #and creates an iterator that returns consecutive keys and their group:
+	    #    current_word - string containing a word (the key)
+	    #    group - iterator yielding all ["<current_word>", "<count>"] items
+	    for current_word, group in groupby(data, itemgetter(0)):
+		try:
+		    total_count = sum(int(count) for current_word, count in group)
+		    print "%s%s%d" % (current_word, separator, total_count)
+		except ValueError:
+		    pass
+
+	if __name__ == "__main__":
+	    main()
+
+### Test of mapperOptimized.py and reducerOptimized.py
++ echo "foo foo quux labs foo bar quux" | /home/a.reino.joaquim/mapperOptimized.py | sort -k1,1 | /home/a.reino.joaquim/reducerOptimized.py 
+
+#### Result : 
+	bar	1
+	foo	3
+	labs	1
+	quux	2
 
