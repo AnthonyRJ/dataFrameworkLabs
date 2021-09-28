@@ -15,4 +15,5 @@
 
 ## 1.6 Send the JAR to the edge node
 
-![image](https://user-images.githubusercontent.com/61497361/135088875-4e5be757-8fd8-470b-b000-c10af47b9bf7.png)
+![image](https://user-images.githubusercontent.com/61497361/135090517-510e5e74-7421-4266-ae64-80b0b7ad2ea7.png)
+
