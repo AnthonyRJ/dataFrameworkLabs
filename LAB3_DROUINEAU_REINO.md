@@ -152,4 +152,162 @@
     +------+
     | 98   |
     +------+
+# 1.3 Create Queries
 
++ displays the list of distinct containing trees
+#### The query : 
+    select distinct famille from trees_internal;
+    
+    +----------------+
+    |	famille 	|
+    +----------------+
+    | Araucariaceae  |
+    | Betulaceae 	|
+    | Bignoniaceae   |
+    | Cannabaceae	|
+    | Cornaceae  	|
+    | Cupressaceae   |
+    | Ebenaceae  	|
+    | Eucomiaceae	|
+    | FAMILLE    	|
+    | Fabaceae   	|
+    | Fagaceae   	|
+    | Ginkgoaceae	|
+    | Juglandaceae   |
+    | Magnoliaceae   |
+    | Malvaceae  	|
+    | Moraceae   	|
+    | Oleaceae   	|
+    | Paulowniaceae  |
+    | Pinaceae   	|
+    | Platanaceae	|
+    | Sapindacaees   |
+    | Sapindaceae	|
+    | Simaroubaceae  |
+    | Taxaceae   	|
+    | Taxodiaceae	|
+    | Ulmaceae   	|
+    +----------------+
+
++ displays the list of different species trees
+#### The query :
+    select distinct espece from trees_internal;
+    
+    +-----------------+
+    | 	espece  	|
+    +-----------------+
+    | ESPECE      	|
+    | araucana    	|
+    | atlantica   	|
+    | australis   	|
+    | baccata     	|
+    | bignonioides	|
+    | biloba      	|
+    | bungeana    	|
+    | cappadocicum	|
+    | carpinifolia	|
+    | colurna     	|
+    | coulteri    	|
+    | decurrens   	|
+    | dioicus     	|
+    | distichum   	|
+    | excelsior   	|
+    | fraxinifolia	|
+    | giganteum   	|
+    | giraldii    	|
+    | glutinosa   	|
+    | grandiflora 	|
+    | hippocastanum   |
+    | ilex        	|
+    | involucrata 	|
+    | japonicum   	|
+    | kaki        	|
+    | libanii     	|
+    | monspessulanum  |
+    | nigra       	|
+    | nigra laricio   |
+    | opalus      	|
+    | orientalis  	|
+    | papyrifera  	|
+    | petraea     	|
+    | pomifera    	|
+    | pseudoacacia	|
+    | sempervirens	|
+    | serrata     	|
+    | stenoptera  	|
+    | suber       	|
+    | sylvatica   	|
+    | tomentosa   	|
+    | tulipifera  	|
+    | ulmoides    	|
+    | virginiana  	|
+    | x acerifolia	|
+    +-----------------+
+
++ the number of trees of each kind
+#### The query :
+    select genre,count(genre) from trees_internal group by genre;
+    
+    +-----------------+------+
+    |  	genre  	| _c1  |
+    +-----------------+------+
+    | Acer        	| 3	|
+    | Aesculus    	| 3	|
+    | Ailanthus   	| 1	|
+    | Alnus       	| 1	|
+    | Araucaria   	| 1	|
+    | Broussonetia	| 1	|
+    | Calocedrus  	| 1	|
+    | Catalpa     	| 1	|
+    | Cedrus      	| 4	|
+    | Celtis      	| 1	|
+    | Corylus     	| 3	|
+    | Davidia     	| 1	|
+    | Diospyros   	| 4	|
+    | Eucommia    	| 1	|
+    | Fagus       	| 8	|
+    | Fraxinus    	| 1	|
+    | GENRE       	| 1	|
+    | Ginkgo      	| 5	|
+    | Gymnocladus 	| 1	|
+    | Juglans     	| 1	|
+    | Liriodendron	| 2	|
+    | Maclura     	| 1	|
+    | Magnolia    	| 1	|
+    | Paulownia   	| 1	|
+    | Pinus       	| 5	|
+    | Platanus    	| 19   |
+    | Pterocarya  	| 3	|
+    | Quercus     	| 4	|
+    | Robinia     	| 1	|
+    | Sequoia     	| 1	|
+    | Sequoiadendron  | 5	|
+    | Styphnolobium   | 1	|
+    | Taxodium    	| 3	|
+    | Taxus       	| 2	|
+    | Tilia       	| 1	|
+    | Ulmus       	| 1	|
+    | Zelkova     	| 4	|
+    +-----------------+------+
+
+    
+    
++ calculates the height of the tallest tree of each kind
+#### The query :
+    select genre,max(hauteur) from trees_internal group by genre;
+
++ sort the trees height from smallest to largest
+#### The query :
+
++ displays the district where the oldest tree is
+#### The query :
+    select arrondissement from trees_internal where hauteur = (select max(hauteur) from trees_internal);
+    
+    +-----------------+
+    | arrondissement  |
+    +-----------------+
+    | 12          	|
+    +-----------------+
+
++ displays the district that contains the most trees
+#### The query :
