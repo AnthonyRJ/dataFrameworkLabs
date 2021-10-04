@@ -1,5 +1,6 @@
 # Apache Hive
 
+## 1.1 Create a connection to Beeline Client
 + Which command allows you to view the jdbc connection used to connectto HiveServer2 ?
  #### It's the command : 
     !list
@@ -114,3 +115,41 @@
     | tab_name  |
     +-----------+
     +-----------+
+# 1.2 Create tables
++ Create an external table called treesexternal
+#### The command is : 
+    CREATE EXTERNAL TABLE IF NOT EXISTS trees_external(Geopoint STRING,Arrondissement INT,Genre STRING,Espece STRING,Famille STRING,AnneePlantation INT,Hauteur FLOAT,Circonference FLOAT,Adresse STRING,NomCommun STRING,Variete STRING,ObjectId INT,NomEv STRING) 
+    COMMENT "Trees of Paris" 
+    ROW FORMAT DELIMITED 
+    FIELDS TERMINATED BY "\u003B" 
+    STORED AS TEXTFILE 
+    LOCATION "/user/a.drouineau/treesParis";
+
++ Create an internal table called treesinternal
+#### The command is :
+    CREATE TABLE IF NOT EXISTS trees_internal(Geopoint STRING,Arrondissement INT,Genre STRING,Espece STRING,Famille STRING,AnneePlantation INT,Hauteur FLOAT,Circonference FLOAT,Adresse STRING,NomCommun STRING,Variete STRING,ObjectId INT,NomEv STRING) 
+    COMMENT "Trees of Paris" 
+    ROW FORMAT DELIMITED 
+    FIELDS TERMINATED BY "\u003B";
+
++ Import data to the internal table using the external table
+#### Here we had to use the command : set hive.execution.engine=mr because we had issues with Tez
+#### The command to import data in the internal table from external table is :
+    insert overwrite table trees_internal select * from trees_external;
+
++ Verify that each table got the same lines count
+#### commands to verify are : 
+    select count(*) from trees_external
+    +------+
+    | _c0  |
+    +------+
+    | 98   |
+    +------+
+#### and for internal table :
+    select count(*) from trees_internal
+    +------+
+    | _c0  |
+    +------+
+    | 98   |
+    +------+
+
