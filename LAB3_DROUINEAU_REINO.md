@@ -295,9 +295,153 @@
 + calculates the height of the tallest tree of each kind
 #### The query :
     select genre,max(hauteur) from trees_internal group by genre;
+    +-----------------+-------+
+    |  	genre  	|  _c1  |
+    +-----------------+-------+
+    | Acer        	| 16.0  |
+    | Aesculus    	| 30.0  |
+    | Ailanthus   	| 35.0  |
+    | Alnus       	| 16.0  |
+    | Araucaria   	| 9.0   |
+    | Broussonetia	| 12.0  |
+    | Calocedrus  	| 20.0  |
+    | Catalpa     	| 15.0  |
+    | Cedrus      	| 30.0  |
+    | Celtis      	| 16.0  |
+    | Corylus     	| 20.0  |
+    | Davidia     	| 12.0  |
+    | Diospyros   	| 14.0  |
+    | Eucommia    	| 12.0  |
+    | Fagus       	| 30.0  |
+    | Fraxinus    	| 30.0  |
+    | GENRE       	| NULL  |
+    | Ginkgo      	| 33.0  |
+    | Gymnocladus 	| 10.0  |
+    | Juglans     	| 28.0  |
+    | Liriodendron	| 35.0  |
+    | Maclura     	| 13.0  |
+    | Magnolia    	| 12.0  |
+    | Paulownia   	| 20.0  |
+    | Pinus       	| 30.0  |
+    | Platanus    	| 45.0  |
+    | Pterocarya  	| 30.0  |
+    | Quercus     	| 31.0  |
+    | Robinia     	| 11.0  |
+    | Sequoia     	| 30.0  |
+    | Sequoiadendron  | 35.0  |
+    | Styphnolobium   | 10.0  |
+    | Taxodium    	| 35.0  |
+    | Taxus       	| 13.0  |
+    | Tilia       	| 20.0  |
+    | Ulmus       	| 15.0  |
+    | Zelkova     	| 30.0  |
+    +-----------------+-------+
 
 + sort the trees height from smallest to largest
 #### The query :
+    select genre,hauteur from trees_internal order by hauteur ASC;
+    +-----------------+----------+
+    |  	genre  	| hauteur  |
+    +-----------------+----------+
+    | Sequoiadendron  | NULL 	|
+    | GENRE       	| NULL 	|
+    | Fagus       	| 2.0  	|
+    | Taxus       	| 5.0  	|
+    | Cedrus      	| 6.0  	|
+    | Araucaria   	| 9.0  	|
+    | Styphnolobium   | 10.0 	|
+    | Quercus     	| 10.0 	|
+    | Gymnocladus 	| 10.0 	|
+    | Fagus       	| 10.0 	|
+    | Pinus       	| 10.0 	|
+    | Robinia     	| 11.0 	|
+    | Diospyros   	| 12.0 	|
+    | Zelkova     	| 12.0 	|
+    | Diospyros   	| 12.0 	|
+    | Eucommia    	| 12.0 	|
+    | Acer        	| 12.0 	|
+    | Magnolia    	| 12.0 	|
+    | Broussonetia	| 12.0 	|
+    | Davidia     	| 12.0 	|
+    | Maclura     	| 13.0 	|
+    | Taxus       	| 13.0 	|
+    | Pinus       	| 14.0 	|
+    | Diospyros   	| 14.0 	|
+    | Diospyros   	| 14.0 	|
+    | Acer        	| 15.0 	|
+    | Catalpa     	| 15.0 	|
+    | Fagus       	| 15.0 	|
+    | Ulmus       	| 15.0 	|
+    | Quercus     	| 15.0 	|
+    | Zelkova     	| 16.0 	|
+    | Acer        	| 16.0 	|
+    | Celtis      	| 16.0 	|
+    | Alnus       	| 16.0 	|
+    | Aesculus    	| 18.0 	|
+    | Ginkgo      	| 18.0 	|
+    | Zelkova     	| 18.0 	|
+    | Fagus       	| 18.0 	|
+    | Calocedrus  	| 20.0 	|
+    | Sequoiadendron  | 20.0 	|
+    | Fagus       	| 20.0 	|
+    | Platanus    	| 20.0 	|
+    | Platanus    	| 20.0 	|
+    | Corylus     	| 20.0 	|
+    | Taxodium    	| 20.0 	|
+    | Corylus     	| 20.0 	|
+    | Corylus     	| 20.0 	|
+    | Paulownia   	| 20.0 	|
+    | Tilia       	| 20.0 	|
+    | Platanus    	| 20.0 	|
+    | Liriodendron	| 22.0 	|
+    | Pterocarya  	| 22.0 	|
+    | Aesculus    	| 22.0 	|
+    | Ginkgo      	| 22.0 	|
+    | Platanus    	| 22.0 	|
+    | Fagus       	| 23.0 	|
+    | Platanus    	| 25.0 	|
+    | Ginkgo      	| 25.0 	|
+    | Pinus       	| 25.0 	|
+    | Ginkgo      	| 25.0 	|
+    | Cedrus      	| 25.0 	|
+    | Platanus    	| 25.0 	|
+    | Platanus    	| 26.0 	|
+    | Platanus    	| 27.0 	|
+    | Pterocarya  	| 27.0 	|
+    | Juglans     	| 28.0 	|
+    | Sequoiadendron  | 30.0 	|
+    | Pterocarya  	| 30.0 	|
+    | Cedrus      	| 30.0 	|
+    | Fagus       	| 30.0 	|
+    | Platanus    	| 30.0 	|
+    | Cedrus      	| 30.0 	|
+    | Platanus    	| 30.0 	|
+    | Taxodium    	| 30.0 	|
+    | Pinus       	| 30.0 	|
+    | Quercus     	| 30.0 	|
+    | Sequoia     	| 30.0 	|
+    | Fagus       	| 30.0 	|
+    | Aesculus    	| 30.0 	|
+    | Zelkova     	| 30.0 	|
+    | Pinus       	| 30.0 	|
+    | Fraxinus    	| 30.0 	|
+    | Sequoiadendron  | 30.0 	|
+    | Quercus     	| 31.0 	|
+    | Platanus    	| 31.0 	|
+    | Platanus    	| 32.0 	|
+    | Ginkgo      	| 33.0 	|
+    | Platanus    	| 34.0 	|
+    | Taxodium    	| 35.0 	|
+    | Platanus    	| 35.0 	|
+    | Ailanthus   	| 35.0 	|
+    | Sequoiadendron  | 35.0 	|
+    | Liriodendron	| 35.0 	|
+    | Platanus    	| 40.0 	|
+    | Platanus    	| 40.0 	|
+    | Platanus    	| 40.0 	|
+    | Platanus    	| 42.0 	|
+    | Platanus    	| 45.0 	|
+    +-----------------+----------+
 
 + displays the district where the oldest tree is
 #### The query :
@@ -311,3 +455,10 @@
 
 + displays the district that contains the most trees
 #### The query :
+    SELECT arrondissement, COUNT(genre) FROM trees_internal GROUP BY arrondissement ORDER BY COUNT(genre) DESC LIMIT 1;
+    +-----------------+------+
+    | arrondissement  | _c1  |
+    +-----------------+------+
+    | 16          	| 36   |
+    +-----------------+------+
+
